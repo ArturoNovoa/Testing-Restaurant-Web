@@ -9,8 +9,6 @@ var Restaurant = function(id, nombre, rubro, ubicacion, horarios, imagen, califi
 }
 
 Restaurant.prototype.reservarHorario = function(horarioReservado) {
-    
-    debugger
     for (var i = 0; i < this.horarios.length; i++) {
         if (this.horarios[i] === horarioReservado) {
             this.horarios.splice(i, 1);
@@ -26,13 +24,6 @@ Restaurant.prototype.calificar = function(nuevaCalificacion) {
 }
 
 Restaurant.prototype.obtenerPuntuacion = function() {
-    var parametro =  this.calificaciones;
-
-    sumatoria(parametro){
-
-}
-
-
     if (this.calificaciones.length === 0) {
         return 0;
     } else {
@@ -46,11 +37,3 @@ Restaurant.prototype.obtenerPuntuacion = function() {
 
 }
 
-var sumatoria = function (arr){
-
-    var sumatoria = 0;
-    for (var i = 0; i < arr.length; i++) {
-        sumatoria += arr[i];
-    }
-    return sumatoria;
-}

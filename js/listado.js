@@ -87,6 +87,7 @@ Listado.prototype.obtH = function() {
 //Solo se filtra si el valor recibido es distinto de null.
 Listado.prototype.obtenerRestaurantes = function(filtroRubro, filtroCiudad, filtroHorario) {
     var restaurantesFiltrados = this.restaurantes;
+    debugger
     if (filtroRubro !== null) {
         restaurantesFiltrados = restaurantesFiltrados.filter(restaurant => restaurant.rubro == filtroRubro);
     }
