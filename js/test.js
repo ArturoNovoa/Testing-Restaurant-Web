@@ -27,7 +27,7 @@ describe("Test reservarHorario()", function() {
   it("The date booked it is deleted from the array", function() {
     restaurant.reservarHorario("13:00");
 
-    expect(restaurant.horarios).that.does.not.include("13:30");
+    expect(restaurant.horarios).that.does.not.include("13:00");
   });
 
 
@@ -94,23 +94,26 @@ describe('Test method calificar()', function(){
 
 describe('Testing buscarRestaurant(id)', function(){
     
-    var restaurant = new Restaurant(0,"TAO Uptown", "Asiática", "Nueva York",["13:00", "15:30", "18:00"],"../img/asiatica1.jpg", [1, 1, 1, 1, 1]);
+    var restaurant = new Restaurant(4,"TAO Uptown", "Asiática", "Nueva York",["13:00", "15:30", "18:00"],"../img/asiatica1.jpg", [1, 1, 1, 1, 1]);
     var listado = new Listado([restaurant]);
 
-    it('It should find a Restaurant with id 0', function(){
-        listado.buscarRestaurante(0);
-
-        expect(listado.buscarRestaurante(0)).to.deep.equal(restaurant);
+    it('It should find a Restaurant with id 4', function(){
+  
+      expect(listado.buscarRestaurante(4)).to.deep.equal(restaurant);
     });
 
-
+    
+    it('It should not find a Restaurant with id undefined', function(){
+      
+        expect(listado.buscarRestaurante()).to.deep.not.equal(restaurant);
+    });
 
 });
 
 // Testeá la función obtenerRestaurantes() para comprobar su funcionamiento. 
 // En este paso, podés elegir vos la pruebas que quieras hacer.
 
-describe('Testing obtenerRestaurant(id)', function(){
+describe('Testing obtenerRestaurant(Rubro)', function(){
     
     var restaurant = new Restaurant(1,"TAO Uptown", "Asiática", "Nueva York",["13:00", "15:30", "18:00"],"../img/asiatica1.jpg", [1, 1, 1, 1, 1]);
     var listado = new Listado([restaurant]);
@@ -121,4 +124,51 @@ describe('Testing obtenerRestaurant(id)', function(){
         expect(resultado).to.deep.equal(listado.restaurantes);
     });
 
+    it('It should find a Restaurant by location', function(){
+
+        var resultado = listado.obtenerRestaurantes(null, "Nueva York", null);
+        expect(resultado).to.deep.equal(listado.restaurantes);
+    });
+    
+    it('It should find a Restaurant by time', function(){
+
+        var resultado = listado.obtenerRestaurantes(null, null, "13:00");
+        expect(resultado).to.deep.equal(listado.restaurantes);
+    });
+
+    it('It should not find a Restaurant by a time which is not on the array', function(){
+
+        var resultado = listado.obtenerRestaurantes(null, null, "13:30");
+        expect(resultado).to.deep.not.equal(listado.restaurantes);
+    });
+
 });
+
+
+describe('Testing Reservar() test 1', function(){
+
+  var reserva1 = new Reserva (new Date(2018, 7, 24, 11, 00), 8, 350, "DES1");
+
+  it('Calculate correctly the base price', function(){
+    expect(reserva1.calcularPrecioBase()).to.equal(2800);
+  });
+
+  it('Calculate correctly the final price', function(){
+    expect(reserva1.calcularPrecioFinal()).to.equal(2310);
+})
+
+})
+
+describe('Testing Reservar() test 2', function(){
+
+  var reserva2 = new Reserva (new Date(2018, 7, 27, 14, 100), 2, 150, "DES200");
+
+  it('Calculate correctly the base price', function(){
+    expect(reserva2.calcularPrecioBase()).to.equal(300);
+  });
+
+  it('Calculate correctly the final price', function(){
+    expect(reserva2.calcularPrecioFinal()).to.equal(100);
+})
+
+})
